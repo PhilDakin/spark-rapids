@@ -569,6 +569,9 @@
                 <jni.classifier>${cuda.version}-arm64</jni.classifier>
             </properties>
         </profile>
+        <profile>
+            <id>bloopInstall</id>
+        </profile>
     </profiles>
 
     <properties>
