@@ -578,8 +578,6 @@
                 </property>
             </activation>
             <properties>
-                <!-- Metals looks at the repo root. so to accomodate scala 2.13  define -->
-                <bloop.configDirectory>${spark.rapids.source.basedir}/.bloop</bloop.configDirectory>
                 <skipTests>true</skipTests>
                 <maven.scaladoc.skip>true</maven.scaladoc.skip>
                 <maven.scalastyle.skip>true</maven.scalastyle.skip>
@@ -612,6 +610,10 @@
                                 <id>generate-bloop-projects</id>
                                 <goals><goal>bloopInstall</goal></goals>
                                 <phase>${bloopInstallPhase}</phase>
+                                <configuration>
+                                    <!-- Metals looks at the repo root. so to accomodate scala 2.13  define -->
+                                    <bloopConfigDir>${spark.rapids.source.basedir}/.bloop</bloopConfigDir>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
