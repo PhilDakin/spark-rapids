@@ -596,7 +596,7 @@
                                 <configuration>
                                     <rules>
                                         <requireJavaVersion>
-                                            <message>Metals semanic database requires JAVA_HOME pointinting to JDK 11+, actual Java version: ${java.version}</message>
+                                            <message>Metals semantic database requires JAVA_HOME pointing to JDK 11+, actual Java version: ${java.version}</message>
                                             <version>[11,)</version>
                                         </requireJavaVersion>
                                     </rules>
