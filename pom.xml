@@ -571,17 +571,66 @@
         </profile>
         <profile>
             <id>bloopInstall</id>
+            <properties>
+                <!-- Metals looks at the repo root. so to accomodate scala 2.13  define -->
+                <bloop.configDirectory>${spark.rapids.source.basedir}/.bloop</bloop.configDirectory>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-bloop-rules</id>
+                                <goals><goal>enforce</goal></goals>
+                                <configuration>
+                                    <rules>
+                                        <requireJavaVersion>
+                                            <message>Metals semanic database requires JAVA_HOME pointinting to JDK 11+, actual Java version: ${java.version}</message>
+                                            <version>[11,)</version>
+                                        </requireJavaVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- make sure bloop execution is after install plugin -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-install-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>ch.epfl.scala</groupId>
+                        <artifactId>bloop-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-bloop-projects</id>
+                                <goals><goal>bloopInstall</goal></goals>
+                                <phase>install</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
     <properties>
         <rapids.module>.</rapids.module>
         <allowConventionalDistJar>false</allowConventionalDistJar>
+        <!-- #if scala-2.12 -->
         <buildver>311</buildver>
+        <spark.version>${spark311.version}</spark.version>
+        <!-- #endif scala-2.12 -->
+        <!-- #if scala-2.13 --><!--
+        <buildver>330</buildver>
+        <spark.version>${spark330.version}</spark.version>
+        --><!-- #endif scala-2.13 -->
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.major.version>8</java.major.version>
-        <spark.version>${spark311.version}</spark.version>
         <spark.test.version>${spark.version}</spark.test.version>
         <parquet.hadoop.version>1.10.1</parquet.hadoop.version>
         <spark.version.classifier>spark${buildver}</spark.version.classifier>
