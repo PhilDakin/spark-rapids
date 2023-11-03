@@ -611,6 +611,7 @@
                             <execution>
                                 <id>generate-bloop-projects</id>
                                 <goals><goal>bloopInstall</goal></goals>
+                                <phase>${bloopInstallPhase}</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -814,6 +815,7 @@
             -Djdk.reflect.useDirectMethodHandle=false
         </extraJavaTestArgs>
         <cloudera.repo.enabled>false</cloudera.repo.enabled>
+        <bloopInstallPhase>install</bloopInstallPhase>
     </properties>
 
     <dependencyManagement>
