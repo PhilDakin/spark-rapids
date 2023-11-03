@@ -571,6 +571,12 @@
         </profile>
         <profile>
             <id>bloopInstall</id>
+            <activation>
+                <property>
+                    <name>bloopInstall</name>
+                    <value>true</value>
+                </property>
+            </activation>
             <properties>
                 <!-- Metals looks at the repo root. so to accomodate scala 2.13  define -->
                 <bloop.configDirectory>${spark.rapids.source.basedir}/.bloop</bloop.configDirectory>
@@ -618,19 +624,11 @@
     <properties>
         <rapids.module>.</rapids.module>
         <allowConventionalDistJar>false</allowConventionalDistJar>
-        <maven.scaladoc.skip>false</maven.scaladoc.skip>
-        <!-- #if scala-2.12 -->
         <buildver>311</buildver>
-        <spark.version>${spark311.version}</spark.version>
-        <!-- #endif scala-2.12 -->
-        <!-- #if scala-2.13 --><!--
-        <buildver>330</buildver>
-        <spark.version>${spark330.version}</spark.version>
-        --><!-- #endif scala-2.13 -->
-
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.major.version>8</java.major.version>
+        <spark.version>${spark311.version}</spark.version>
         <spark.test.version>${spark.version}</spark.test.version>
         <parquet.hadoop.version>1.10.1</parquet.hadoop.version>
         <spark.version.classifier>spark${buildver}</spark.version.classifier>
@@ -707,6 +705,7 @@
         <scala.local-lib.path>org/scala-lang/scala-library/${scala.version}/scala-library-${scala.version}.jar</scala.local-lib.path>
         <target.classifier>${spark.version.classifier}</target.classifier>
         <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
+        <maven.scaladoc.skip>false</maven.scaladoc.skip>
         <maven.scalastyle.skip>false</maven.scalastyle.skip>
         <dist.jar.compress>true</dist.jar.compress>
         <spark330.iceberg.version>0.14.1</spark330.iceberg.version>
