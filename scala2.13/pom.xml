@@ -596,6 +596,7 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <!-- make sure bloop execution is after install plugin -->
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-install-plugin</artifactId>
                     </plugin>
